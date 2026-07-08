@@ -29,10 +29,3 @@ public:
         return ans;
     }
 };
-
-/**
- * Your FindSumPairs object will be instantiated and called as such:
- * FindSumPairs* obj = new FindSumPairs(nums1, nums2);
- * obj->add(index,val);
- * int param_2 = obj->count(tot);
- */
