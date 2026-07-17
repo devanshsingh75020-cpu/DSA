@@ -19,11 +19,7 @@ public:
         for (int digit = 0; digit <= limitdigit; digit++) {
 
             bool newisleadingzero = isleadingzero && (digit == 0);
-            bool newislimitedactualno = 
-            
-            
-            
-             islimitedactualno && (digit == limitdigit);
+            bool newislimitedactualno = islimitedactualno && (digit == limitdigit);
 
             int newprevprev = prev;
             int newprev = prev;
@@ -64,9 +60,6 @@ public:
     }
 
     long long func(long long num) {
-        //if (num < 0)
-            //return 0;
-
         s = to_string(num);
         n = s.size();
 
@@ -78,7 +71,6 @@ public:
 
         return solve(0, -1, -1, true, true).second;
     }
-
     long long totalWaviness(long long num1, long long num2) {
         return func(num2) - func(num1 - 1);
     }
