@@ -6,8 +6,7 @@ public:
         // Count reverse pairs
         int right = mid + 1;
         for (int left = low; left <= mid; left++) {
-            while (right <= high &&
-                   (long long)nums[left] > 2LL * nums[right]) {
+            while (right <= high && (long long)nums[left] > 2LL * nums[right]) {
                 right++;
             }
             cnt += right - (mid + 1);
