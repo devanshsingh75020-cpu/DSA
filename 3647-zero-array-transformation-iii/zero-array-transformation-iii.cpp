@@ -1,72 +1,48 @@
 class Solution {
 public:
-    static bool cmp(pair<int,int> a, pair<int,int> b) {
-        if (a.first != b.first)
-            return a.first < b.first;
-
-        return a.second > b.second;
-    }
-
     int maxRemoval(vector<int>& nums, vector<vector<int>>& queries) {
         int n = nums.size();
-        int m = queries.size();
 
-        vector<pair<int,int>> q;
+        // Min-heap of used queries' end indices
+        priority_queue<int, vector<int>, greater<int>> past;
 
-        for (auto &query : queries) {
-            q.push_back({query[0], query[1]});
-        }
+        // Max-heap of available queries' end indices
+        priority_queue<int> maxHeap;
 
-        // Sort by starting point
-        // If same start, farther reach first
-        sort(q.begin(), q.end(), cmp);
+        // Sort queries by start index
+        sort(queries.begin(), queries.end());
 
-        // Max heap based on ending point
-        priority_queue<int> pq;
+        int j = 0;              // Pointer to queries
+        int usedCount = 0;      // Number of queries actually used
 
-        // Difference array to track currently active queries
-        vector<int> diff(n + 1, 0);
-
-        int active = 0;
-        int j = 0;
-        int used = 0;
-
-        for (int i = 0; i < n; i++) {
-
-            active += diff[i];
-
-            // Add all queries starting at or before i
-            while (j < m && q[j].first <= i) {
-                pq.push(q[j].second);
-                j++;
+        for (int i = 0; i < n; ++i) {
+            // Push all queries starting at index i into maxHeap
+            while (j < queries.size() && queries[j][0] == i) {
+                maxHeap.push(queries[j][1]);  // push only the end
+                ++j;
             }
 
-            // We need at least nums[i] active queries
-            while (active < nums[i]) {
+            // Apply effect of already-used queries
+            nums[i] -= past.size();
 
-                // No query available
-                if (pq.empty())
-                    return -1;
+            // Apply more queries if needed
+            while (nums[i] > 0 && !maxHeap.empty() && maxHeap.top() >= i) {
+                int r = maxHeap.top(); maxHeap.pop();
+                past.push(r);
+                usedCount++;
+                nums[i]--;
+            }
 
-                int r = pq.top();
-                pq.pop();
+            // If we can't reduce nums[i] to 0
+            if (nums[i] > 0)
+                return -1;
 
-                // This query cannot cover i
-                if (r < i)
-                    continue;
-
-                // Use this query
-                active++;
-                used++;
-
-                // Its effect ends after r
-                if (r + 1 <= n)
-                    diff[r + 1]--;
+            // Remove expired queries
+            while (!past.empty() && past.top() == i) {
+                past.pop();
             }
         }
 
-        // We used 'used' queries.
-        // The remaining queries can be removed.
-        return m - used;
+        return queries.size() - usedCount;
     }
 };
