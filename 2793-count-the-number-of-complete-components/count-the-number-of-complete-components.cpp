@@ -22,7 +22,7 @@ public:
     }
 
     int countCompleteComponents(int n, vector<vector<int>>& edges) {
-         parent.resize(n);
+        parent.resize(n);
         sz.assign(n, 1);
 
         for (int i = 0; i < n; i++)
