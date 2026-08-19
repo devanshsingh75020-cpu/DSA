@@ -5,23 +5,17 @@ public:
         vector<int> ans(n);
 
         // {weight, server index}
-        priority_queue<pair<int,int>,
-                       vector<pair<int,int>>,
-                       greater<pair<int,int>>> available;
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> available;
 
         // {finish time, server index}
-        priority_queue<pair<long long,int>,
-                       vector<pair<long long,int>>,
-                       greater<pair<long long,int>>> busy;
+        priority_queue<pair<long long,int>,vector<pair<long long,int>>,greater<pair<long long,int>>> busy;
 
         for(int i = 0; i < servers.size(); i++) {
             available.push({servers[i], i});
         }
 
         long long time = 0;
-
         for(int i = 0; i < n; i++) {
-
             time = max(time, (long long)i);
 
             // Move all finished servers to available
@@ -53,7 +47,6 @@ public:
             // This server will finish at time + task duration
             busy.push({time + tasks[i], id});
         }
-
         return ans;
     }
 };
