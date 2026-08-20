@@ -23,7 +23,7 @@ public:
             int extrainc=0;
             int waste=i+1-dist;
             
-            if(i!=dist){
+            if(i+1!=dist){
                 extrainc=min(waste,2*k);
             }
 
