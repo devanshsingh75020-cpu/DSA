@@ -1,7 +1,6 @@
 class ProductOfNumbers {
 public:
     vector<int> nums;
-
     ProductOfNumbers() {
         
     }
@@ -12,13 +11,11 @@ public:
     
     int getProduct(int k) {
         long long prod = 1;
-
         int n = nums.size();
 
         for(int i = n - 1; i >= n - k; i--) {
             prod *= nums[i];
         }
-
         return prod;
     }
 };
