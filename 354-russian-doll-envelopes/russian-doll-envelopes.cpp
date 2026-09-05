@@ -7,13 +7,11 @@ public:
         return a[0] < b[0];
     }
     int maxEnvelopes(vector<vector<int>>& envelopes) {
-
         sort(envelopes.begin(), envelopes.end(), cmp);
 
         vector<int> lis;
 
         for(int i = 0; i < envelopes.size(); i++) {
-
             int h = envelopes[i][1];
 
             // Binary search
@@ -24,7 +22,6 @@ public:
             else
                 lis[pos] = h;
         }
-
         return lis.size();
     }
 };
