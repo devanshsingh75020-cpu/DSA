@@ -2,7 +2,7 @@ class Solution {
 public:
     int n, k;
     int mod = 1e9 + 7;
-    int dp[1005][1005][2];
+    int dp[1001][1001][2];
     long long f(int idx, int cnt, bool isopen) {
         if (cnt == k && !isopen)  return 1;
 
