@@ -24,7 +24,7 @@ public:
         }
 
         vector<bool> marked(n, 0);
-        int ans = 0;
+        int ans = n;
 
         for(int i = 0; i < n; i++) {
             if(marked[i] == 1) continue;
@@ -35,9 +35,8 @@ public:
             while(marked[j] == 0) {
                 marked[j] = 1;
                 j = pos[j];
-                clen++;
             }
-            ans += clen - 1;
+            ans--;
         }
 
         return ans;
